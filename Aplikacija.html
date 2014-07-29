@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="Solver.js"></script>
+<title>Ubaci pravougaonik u pravougaonik</title>
+</head>
+<body>
+
+<label for="platno">Velicina platna:</label>
+<br/>
+<label for="width">Duzina</label>
+<input name="canWidth" type="text" maxlength="512" id="canWidth" class="searchField"/>
+<label for="height">Visina</label>
+<input name="canHeight" type="text" maxlength="512" id="canHeight" class="searchField"/>
+<button type="button" onclick="postavi()">Postavi</button>
+<br/>
+
+<br/>
+<label for="pravouganik">Pravouganik za ubaciti:</label>
+<br/>
+<label for="width">Duzina</label>
+<input name="rectWidth" type="text" maxlength="512" id="rectWidth" class="searchField"/>
+<label for="height">Visina</label>
+<input name="rectHeight" type="text" maxlength="512" id="rectHeight" class="searchField"/>
+
+<button type="button" onclick="ubaciPravougaonik()">Ubaci pravougaonik</button>
+<br/>
+
+<canvas id="myCanvas" width="640" height="480" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<br/>
+<br/>
+<textarea name="outputtext" id="outputtext" cols="100" rows="20"></textarea>
+
+<script type="text/javascript">
+var root = new Node(new Rect(0,0,640,480));
+var idcounter = 1;
+
+function ubaciPravougaonik() {
+	console.log(root.rect.width);
+	console.log(root.rect.height);
+	var width = parseInt(document.getElementById("rectWidth").value);
+	var height = parseInt(document.getElementById("rectHeight").value);
+	if (isNaN(width)) {
+		alert("Duzina nevalja");
+		return
+	}
+	if (isNaN(height)) {
+		alert("Visina nevalja");
+		return;
+	}
+	
+	//var root = new Node(new Rect(0,0,64,48));
+	var img = new Image(new Rect(0,0,width,height), idcounter++);
+
+	document.getElementById("outputtext").value = "Pravougaonik napravljen.\n" + document.getElementById("outputtext").value ;
+	var node = insert(root, img);
+	if (node == null) {
+		alert("Nemoze ubaciti pravougaonik zadate velicine.");
+		return;
+	}
+	else document.getElementById("outputtext").value = "Pozicija: x =" + node.rect.x + " y =" + node.rect.y + " .\n" + document.getElementById("outputtext").value ;
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.strokeStyle="black";
+	ctx.rect(node.rect.x,node.rect.y,width,height);
+	ctx.font = "10px Arial";
+	ctx.fillText("" + img.id,node.rect.x + width/2, node.rect.y + height/2);
+	ctx.stroke();
+	
+}
+
+function postavi() {
+	var width = parseInt(document.getElementById("canWidth").value);
+	var height = parseInt(document.getElementById("canHeight").value);
+	if (isNaN(width)) {
+		alert("Duzina nevalja");
+		return
+	}
+	if (isNaN(height)) {
+		alert("Visina nevalja");
+		return;
+	}
+	document.getElementById("canWidth").disabled = true;
+	document.getElementById("canHeight").disabled = true;
+
+	root = new Node(new Rect(0,0,width,height));
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	ctx.strokeStyle="red";
+	ctx.rect(0,0,width,height);
+	ctx.stroke();
+
+}
+</script>
+
+</body>
+</html>
