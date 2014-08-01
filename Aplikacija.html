@@ -13,20 +13,22 @@
 <input name="canWidth" type="text" maxlength="512" id="canWidth" class="searchField"/>
 <label for="height">Visina</label>
 <input name="canHeight" type="text" maxlength="512" id="canHeight" class="searchField"/>
-<button type="button" onclick="postavi()">Postavi</button>
+<button type="button" onclick="postavi()" id="potvrdiPostavke">Postavi</button>
 <br/>
 
 <br/>
 <label for="pravouganik">Pravouganik za ubaciti:</label>
 <br/>
 <label for="width">Duzina</label>
-<input name="rectWidth" type="text" maxlength="512" id="rectWidth" class="searchField"/>
+<input name="rectWidth" type="text" maxlength="512" id="rectWidth" class="searchField" disabled="disabled"/>
 <label for="height">Visina</label>
-<input name="rectHeight" type="text" maxlength="512" id="rectHeight" class="searchField"/>
+<input name="rectHeight" type="text" maxlength="512" id="rectHeight" class="searchField" disabled="disabled"/>
 
-<button type="button" onclick="ubaciPravougaonik()">Ubaci pravougaonik</button>
+<button type="button" onclick="ubaciPravougaonik()" id="potvrdiPravougaonik">Ubaci pravougaonik</button>
 <br/>
-
+<button type="button" onclick="pocisti()">Pocisti</button>
+<br/>
+<br/>
 <canvas id="myCanvas" width="640" height="480" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 <br/>
@@ -36,6 +38,9 @@ Your browser does not support the HTML5 canvas tag.</canvas>
 <script type="text/javascript">
 var root = new Node(new Rect(0,0,640,480));
 var idcounter = 1;
+document.getElementById("rectWidth").disabled = true;
+document.getElementById("rectHeight").disabled = true;
+document.getElementById("potvrdiPravougaonik").disabled = true;
 
 function ubaciPravougaonik() {
 	console.log(root.rect.width);
@@ -51,7 +56,6 @@ function ubaciPravougaonik() {
 		return;
 	}
 	
-	//var root = new Node(new Rect(0,0,64,48));
 	var img = new Image(new Rect(0,0,width,height), idcounter++);
 
 	document.getElementById("outputtext").value = "Pravougaonik napravljen.\n" + document.getElementById("outputtext").value ;
@@ -85,6 +89,10 @@ function postavi() {
 	document.getElementById("canWidth").disabled = true;
 	document.getElementById("canHeight").disabled = true;
 
+	document.getElementById("rectWidth").disabled = false;
+	document.getElementById("rectHeight").disabled = false;
+	document.getElementById("potvrdiPravougaonik").disabled = false;
+
 	root = new Node(new Rect(0,0,width,height));
 	var c=document.getElementById("myCanvas");
 	var ctx=c.getContext("2d");
@@ -92,6 +100,22 @@ function postavi() {
 	ctx.rect(0,0,width,height);
 	ctx.stroke();
 
+
+}
+
+function pocisti() {
+	document.getElementById("rectWidth").disabled = true;
+	document.getElementById("rectHeight").disabled = true;
+	document.getElementById("potvrdiPravougaonik").disabled = true;
+	var width = parseInt(document.getElementById("canWidth").value);
+	var height = parseInt(document.getElementById("canHeight").value);
+	var c=document.getElementById("myCanvas");
+	c.width = c.width;
+	//var ctx=c.getContext("2d");
+	//ctx.clearRect ( 0 , 0 , width, height );
+	idcounter = 1;
+	document.getElementById("canWidth").disabled = false;
+	document.getElementById("canHeight").disabled = false;
 }
 </script>
 
