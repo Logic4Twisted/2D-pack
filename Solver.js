@@ -2,10 +2,6 @@
  * 
  */
 
-function test(str) {
-	return str + " ** ";
-}
-
 function Rect(x, y, width, height) {
 	this.x = x;
 	this.y = y;

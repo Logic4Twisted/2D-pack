@@ -7,26 +7,26 @@
 </head>
 <body>
 
-<label for="platno">Velicina platna:</label>
+<label for="platno">Canvas size:</label>
 <br/>
-<label for="width">Duzina</label>
-<input name="canWidth" type="text" maxlength="512" id="canWidth" class="searchField"/>
-<label for="height">Visina</label>
-<input name="canHeight" type="text" maxlength="512" id="canHeight" class="searchField"/>
-<button type="button" onclick="postavi()" id="potvrdiPostavke">Postavi</button>
+<label for="width">Length</label>
+<input name="canWidth" type="text" maxlength="512" id="canWidth" class="searchField" value="640"/>
+<label for="height">Hight</label>
+<input name="canHeight" type="text" maxlength="512" id="canHeight" class="searchField" value="480"/>
+<button type="button" onclick="postavi()" id="setSize">Set</button>
 <br/>
 
 <br/>
-<label for="pravouganik">Pravouganik za ubaciti:</label>
+<label for="pravouganik">Rectangular to insert:</label>
 <br/>
-<label for="width">Duzina</label>
+<label for="width">Length</label>
 <input name="rectWidth" type="text" maxlength="512" id="rectWidth" class="searchField" disabled="disabled"/>
-<label for="height">Visina</label>
+<label for="height">Hight</label>
 <input name="rectHeight" type="text" maxlength="512" id="rectHeight" class="searchField" disabled="disabled"/>
 
-<button type="button" onclick="ubaciPravougaonik()" id="potvrdiPravougaonik">Ubaci pravougaonik</button>
+<button type="button" onclick="ubaciPravougaonik()" id="potvrdiPravougaonik">Insert rectangular</button>
 <br/>
-<button type="button" onclick="pocisti()">Pocisti</button>
+<button type="button" onclick="pocisti()">Clear</button>
 <br/>
 <br/>
 <canvas id="myCanvas" width="640" height="480" style="border:1px solid #d3d3d3;">
@@ -48,11 +48,11 @@ function ubaciPravougaonik() {
 	var width = parseInt(document.getElementById("rectWidth").value);
 	var height = parseInt(document.getElementById("rectHeight").value);
 	if (isNaN(width)) {
-		alert("Duzina nevalja");
+		alert("Length error");
 		return
 	}
 	if (isNaN(height)) {
-		alert("Visina nevalja");
+		alert("Hight error");
 		return;
 	}
 	
@@ -61,7 +61,7 @@ function ubaciPravougaonik() {
 	document.getElementById("outputtext").value = "Pravougaonik napravljen.\n" + document.getElementById("outputtext").value ;
 	var node = insert(root, img);
 	if (node == null) {
-		alert("Nemoze ubaciti pravougaonik zadate velicine.");
+		alert("Cannot insert rectangular of specified size.");
 		return;
 	}
 	else document.getElementById("outputtext").value = "Pozicija: x =" + node.rect.x + " y =" + node.rect.y + " .\n" + document.getElementById("outputtext").value ;
